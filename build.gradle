@@ -1,7 +1,7 @@
 
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.5.3'
+	id 'org.springframework.boot' version '3.5.15'
 	id 'io.spring.dependency-management' version '1.1.7'
 	id 'org.cyclonedx.bom' version '3.4.1'
 }
@@ -43,3 +43,61 @@ tasks.named('test') {
 	useJUnitPlatform()
 }   
 
+
+// Vulnerability remediation constraints
+dependencies {
+    constraints {
+        implementation('org.apache.tomcat.embed:tomcat-embed-core:10.1.58') { version { strictly '10.1.58' } }
+        implementation('com.fasterxml.jackson.core:jackson-core:2.21.4') { version { strictly '2.21.4' } }
+        implementation('com.fasterxml.jackson.core:jackson-databind:2.22.1') { version { strictly '2.22.1' } }
+        implementation('org.assertj:assertj-core:3.27.7') { version { strictly '3.27.7' } }
+        implementation('org.springframework.data:spring-data-commons:3.5.12') { version { strictly '3.5.12' } }
+        implementation('org.springframework:spring-core:6.2.19') { version { strictly '6.2.19' } }
+        implementation('org.springframework:spring-expression:6.2.19') { version { strictly '6.2.19' } }
+        implementation('org.springframework:spring-webmvc:6.2.19') { version { strictly '6.2.19' } }
+        implementation('ch.qos.logback:logback-core:1.5.34') { version { strictly '1.5.34' } }
+        implementation('org.apache.commons:commons-lang3:3.18.0') { version { strictly '3.18.0' } }
+        implementation('org.apache.logging.log4j:log4j-api:2.26.1') { version { strictly '2.26.1' } }
+        implementation('org.springframework.boot:spring-boot-autoconfigure:3.5.15') { version { strictly '3.5.15' } }
+        implementation('org.springframework:spring-web:6.2.19') { version { strictly '6.2.19' } }
+    }
+}
+
+// Enforce vulnerability remediation versions
+dependencyManagement {
+    dependencies {
+        dependency 'org.apache.tomcat.embed:tomcat-embed-core:10.1.58'
+        dependency 'com.fasterxml.jackson.core:jackson-core:2.21.4'
+        dependency 'com.fasterxml.jackson.core:jackson-databind:2.22.1'
+        dependency 'org.assertj:assertj-core:3.27.7'
+        dependency 'org.springframework.boot:spring-boot:3.5.15'
+        dependency 'org.springframework.data:spring-data-commons:3.5.12'
+        dependency 'org.springframework:spring-core:6.2.19'
+        dependency 'org.springframework:spring-expression:6.2.19'
+        dependency 'org.springframework:spring-webmvc:6.2.19'
+        dependency 'ch.qos.logback:logback-core:1.5.34'
+        dependency 'org.apache.commons:commons-lang3:3.18.0'
+        dependency 'org.apache.logging.log4j:log4j-api:2.26.1'
+        dependency 'org.springframework.boot:spring-boot-autoconfigure:3.5.15'
+        dependency 'org.springframework:spring-web:6.2.19'
+    }
+}
+
+configurations.all {
+    resolutionStrategy {
+        force 'org.apache.tomcat.embed:tomcat-embed-core:10.1.58'
+        force 'com.fasterxml.jackson.core:jackson-core:2.21.4'
+        force 'com.fasterxml.jackson.core:jackson-databind:2.22.1'
+        force 'org.assertj:assertj-core:3.27.7'
+        force 'org.springframework.boot:spring-boot:3.5.15'
+        force 'org.springframework.data:spring-data-commons:3.5.12'
+        force 'org.springframework:spring-core:6.2.19'
+        force 'org.springframework:spring-expression:6.2.19'
+        force 'org.springframework:spring-webmvc:6.2.19'
+        force 'ch.qos.logback:logback-core:1.5.34'
+        force 'org.apache.commons:commons-lang3:3.18.0'
+        force 'org.apache.logging.log4j:log4j-api:2.26.1'
+        force 'org.springframework.boot:spring-boot-autoconfigure:3.5.15'
+        force 'org.springframework:spring-web:6.2.19'
+    }
+}
